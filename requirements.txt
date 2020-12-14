@@ -1,0 +1,4 @@
+quart
+opencv-python
+quart-cors
+tensorflow-gpu
