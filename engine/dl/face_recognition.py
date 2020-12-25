@@ -57,22 +57,26 @@ def main():
                 bboxes = bboxes.astype(int)
                 bboxes = bboxes + [-1,-1,1,1] # personal choice    
                 results, score = learner.infer(conf, faces, targets, args.tta)
-                print(score)
-                # print(score[0])
+                #print(score)
+               # print(score[0])
+                x="\n{}".format(score.data[0])
+                #print(x)
                 for idx,bbox in enumerate(bboxes):
                     if args.score:
                         frame = draw_box_name(bbox, names[results[idx] + 1] + '_{:.2f}'.format(score[idx]), frame)
                     else:
                         if float('{:.2f}'.format(score[idx])) > .98:
                             name = names[0]
+                            print(name)
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
+                            print(name)
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
             except:
-                print('detect error')    
+                pass
+                #print('detect error')    
                 
-    return frame, name, score
+            return cv2.imshow('face Capture', frame),x, name
     
-        
 main()   
