@@ -64,12 +64,14 @@ while cap.isOpened():
                 else:
                     if float('{:.2f}'.format(score[idx])) > .98:
                         name = names[0]
+                        print(name)
                         frame = draw_box_name(bbox, "unknown", frame)
                     else:    
                         name = names[results[idx]+1]
+                        print(name)
                         frame = draw_box_name(bbox, names[results[idx] + 1], frame)
         except:
-            print('detect error')    
+            pass   
             
         cv2.imshow('face Capture', frame)
 
