@@ -51,17 +51,6 @@ class App extends Component {
                   alt=""
                 />
               </div>
-              <div
-                style={{
-                  fontSize: 30,
-                  marginRight: 20,
-                  marginLeft: 20,
-                  textAlign: "center",
-                }}
-              >
-                Down <br />
-                {response.totalDown}
-              </div>
               <div style={{ fontSize: 30, textAlign: "center" }}>
                 Up
                 <br />
