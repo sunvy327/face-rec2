@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import Loader from "react-loader-spinner";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  // constructor(props) {
+    state = {
       response: [],
       endpoint: "ws://0.0.0.0:8083/ws",
       loading: false,
-    };
-  }
+    }
+  // }
 
   componentDidMount() {
     const { endpoint } = this.state;
@@ -20,16 +19,17 @@ class App extends Component {
       console.log("Connection established");
     };
     socket.onmessage = (event) => {
+
       this.setState({
-        response: JSON.parse(event.data),
         loading: true,
+        response: JSON.parse(event.data),
       });
     };
   }
 
   render() {
     const { response, loading } = this.state;
-
+    console.log(response)
     return (
       <>
         <Loader
@@ -37,7 +37,7 @@ class App extends Component {
           color="#00BFFF"
           height={100}
           width={100}
-          timeout={loading === true ? 500 : 200000}
+          timeout={loading === true}
           style={{ marginTop: "200px", marginLeft: "36em" }}
         />
         <div style={{ display: "flex" }}>
@@ -51,10 +51,18 @@ class App extends Component {
                   alt=""
                 />
               </div>
-              <div style={{ fontSize: 30, textAlign: "center" }}>
-                Up
+              <div style={{ fontSize: 25, textAlign: "center", margin:"20px 70px" }}>
+                <h3>Detected Face</h3>
                 <br />
-                {response.totalUp}
+                <img
+                  src={
+                    response.detection && `data:image/gif;base64,${response.detection}`
+                  }
+                  alt=""
+                  width="300"
+                /> <br />
+                  {response.name ? <>Name: {response.name} <br /></> : null}
+                  {response.score ? <>Score: {response.score} <br /></> : null}
               </div>
             </>
           ) : null}
