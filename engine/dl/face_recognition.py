@@ -48,6 +48,8 @@ def main():
 	
     while cap.isOpened():
         isSuccess,frame = cap.read()
+        match_score = None
+        name = None
         if isSuccess:            
             try:
     #                 image = Image.fromarray(frame[...,::-1]) #bgr to rgb
@@ -57,22 +59,26 @@ def main():
                 bboxes = bboxes.astype(int)
                 bboxes = bboxes + [-1,-1,1,1] # personal choice    
                 results, score = learner.infer(conf, faces, targets, args.tta)
-                print(score)
-                # print(score[0])
+                #print(score)
+               # print(score[0])
+                match_score="\n{}".format(score.data[0])
+                #print(x)
                 for idx,bbox in enumerate(bboxes):
                     if args.score:
                         frame = draw_box_name(bbox, names[results[idx] + 1] + '_{:.2f}'.format(score[idx]), frame)
                     else:
                         if float('{:.2f}'.format(score[idx])) > .98:
                             name = names[0]
+                            print(name)
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
+                            print(name)
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
             except:
-                print('detect error')    
-                
-    return frame, name, score
+                pass
+                #print('detect error')    
+            ret, jpeg = cv2.imencode('.jpg', frame)   
+            return  jpeg.tostring(),name, match_score
     
-        
-main()   
+# main()   
