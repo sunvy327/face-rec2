@@ -53,9 +53,9 @@ def main():
 	
     while cap.isOpened():
         isSuccess,frame = cap.read()
-        match_score = None
-        name = None
-        det_image=  None
+        #match_score = None
+        #name = None
+        #det_image=  None
         if isSuccess:            
             try:
     #                 image = Image.fromarray(frame[...,::-1]) #bgr to rgb
@@ -81,7 +81,7 @@ def main():
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
-                            match_score = match_score[idx] * 100
+                            match_score = match_score * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
                             img =glob(f"{data_folder_root}/data/facebank/{name}/*.jpg")
                             img= cv2.imread(img[0])
