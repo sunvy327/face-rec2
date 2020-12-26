@@ -1,9 +1,9 @@
 import base64
 import json
 from quart import Quart, jsonify, websocket
-from face_verify import faceRec
-
-camera = faceRec()
+# from face_verify import faceRec
+from face_recognition import main
+# camera = faceRec()
 
 app = Quart(__name__)
 
@@ -16,10 +16,13 @@ async def index():
 async def get_stream():
 
     while True:
-        frame = camera.main()
-        print(frame)
+        detect_jpg = None
+        frame, detected, name, score = main()
+        print(score)
         jpg_as_text = base64.b64encode(frame).decode('ascii')
-        data = {"image": jpg_as_text}
+        if detected:
+            detect_jpg = base64.b64encode(detected).decode('ascii')
+        data = {"image": jpg_as_text, "name":name, "score":score, "detection":detect_jpg}
         await websocket.send(json.dumps(data))
 
 if __name__ == '__main__':
