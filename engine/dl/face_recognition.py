@@ -55,6 +55,7 @@ def main():
             try:
     #                 image = Image.fromarray(frame[...,::-1]) #bgr to rgb
                 image = Image.fromarray(frame)
+		image=image.resize((500,500))
                 bboxes, faces = mtcnn.align_multi(image, conf.face_limit, conf.min_face_size)
                 bboxes = bboxes[:,:-1] #shape:[10,4],only keep 10 highest possibiity faces
                 bboxes = bboxes.astype(int)
