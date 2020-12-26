@@ -86,6 +86,6 @@ def main():
                 #print('detect error')    
             ret, jpeg = cv2.imencode('.jpg', frame)
 	
-            return  jpeg.tostring(),name, match_score,img
+            return  jpeg.tostring(),name, match_score,image
     
 # main()   
