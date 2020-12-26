@@ -10,8 +10,9 @@ from mtcnn import MTCNN
 from Learner import face_learner
 from utils import load_facebank, draw_box_name, prepare_facebank
 import matplotlib.pyplot as plt
-from glob import glob
+import glob
 import os
+import numpy as np
 
 parser = argparse.ArgumentParser(description='for face verification')
 parser.add_argument("-s", "--save", help="whether save",action="store_true")
@@ -83,15 +84,16 @@ def main():
                             name = names[results[idx]+1]
                             match_score = match_score * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
-                            img =glob(f"{data_folder_root}/data/facebank/{name}/*.jpg")
-                            img= cv2.imread(img[0])
-                            det_image =  cv2.imencode('.jpg', img)[1].tostring()
+                            
+                            #det_image =  cv2.imencode('.jpg', img)[1].tostring()
                        
             except:
                 pass
                 #print('detect error')    
             ret, jpeg = cv2.imencode('.jpg', frame) 
-           
-            return  jpeg.tostring(),det_image, name, match_score
+            path ="/home/user/Downloads/Face-Recognition/data/facebank/"+str(name)+"/*.jpg"
+            filenames = [img for img in glob.glob(path)]
+            img=cv2.imread(filenames[0])
+            return  jpeg.tostring(),img, name, match_score
     
 # main()   
