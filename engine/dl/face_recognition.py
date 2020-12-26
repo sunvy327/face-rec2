@@ -77,14 +77,15 @@ def main():
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
-                            match_score = score[idx] * 100
+                            match_score = match_score[idx] * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
+			    img =glob("/home/user/Downloads/Face-Recognition/data/facebank/" +str(name)+"/"+"*.jpg")
+                            img= cv2.imread(img[0])
             except:
                 pass
                 #print('detect error')    
-            ret, jpeg = cv2.imencode('.jpg', frame) 
-	    img =glob("/home/user/Downloads/Face-Recognition/data/facebank/" +str(name)+"/"+"*.jpg")
-            img= cv2.imread(img[0])
+            ret, jpeg = cv2.imencode('.jpg', frame)
+	
             return  jpeg.tostring(),name, match_score,img
     
 # main()   
