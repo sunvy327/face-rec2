@@ -79,8 +79,8 @@ def main():
                             name = names[results[idx]+1]
                             match_score = match_score[idx] * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
-			    img =glob("/home/user/Downloads/Face-Recognition/data/facebank/" +str(name)+"/"+"*.jpg")
-                            img= cv2.imread(img[0])
+			    image =glob("/home/user/Downloads/Face-Recognition/data/facebank/" +str(name)+"/"+"*.jpg")
+                            image= cv2.imread(image[0])
             except:
                 pass
                 #print('detect error')    
