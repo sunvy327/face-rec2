@@ -69,12 +69,13 @@ def main():
                         frame = draw_box_name(bbox, names[results[idx] + 1] + '_{:.2f}'.format(score[idx]), frame)
                     else:
                         if float('{:.2f}'.format(score[idx])) > .98:
-                            name = names[0]
-                            print(name)
+                            match_score = None
+                            # name = names[0]
+                            # print(name)
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
-                            print(name)
+                            match_score = score[idx] * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
             except:
                 pass
