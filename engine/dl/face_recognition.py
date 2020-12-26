@@ -11,6 +11,7 @@ from Learner import face_learner
 from utils import load_facebank, draw_box_name, prepare_facebank
 import matplotlib.pyplot as plt
 from glob import glob
+import os
 
 parser = argparse.ArgumentParser(description='for face verification')
 parser.add_argument("-s", "--save", help="whether save",action="store_true")
@@ -24,6 +25,8 @@ conf = get_config(False)
 
 mtcnn = MTCNN()
 print('arcface loaded')
+
+data_folder_root = os.path.dirname(os.path.abspath(__file__))
 
 learner = face_learner(conf, True)
 learner.threshold = args.threshold
@@ -52,11 +55,12 @@ def main():
         isSuccess,frame = cap.read()
         match_score = None
         name = None
+        det_image=  None
         if isSuccess:            
             try:
     #                 image = Image.fromarray(frame[...,::-1]) #bgr to rgb
                 image = Image.fromarray(frame)
-		image=image.resize((500,500))
+		        # image = image.resize((500,500))
                 bboxes, faces = mtcnn.align_multi(image, conf.face_limit, conf.min_face_size)
                 bboxes = bboxes[:,:-1] #shape:[10,4],only keep 10 highest possibiity faces
                 bboxes = bboxes.astype(int)
@@ -79,13 +83,15 @@ def main():
                             name = names[results[idx]+1]
                             match_score = match_score[idx] * 100
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
-			    image =glob("/home/user/Downloads/Face-Recognition/data/facebank/" +str(name)+"/"+"*.jpg")
-                            image= cv2.imread(image[0])
+                            img =glob(f"{data_folder_root}/data/facebank/{name}/*.jpg")
+                            img= cv2.imread(img[0])
+                            det_image =  cv2.imencode('.jpg', img)[1].tostring()
+                       
             except:
                 pass
                 #print('detect error')    
-            ret, jpeg = cv2.imencode('.jpg', frame)
-	
-            return  jpeg.tostring(),name, match_score,image
+            ret, jpeg = cv2.imencode('.jpg', frame) 
+           
+            return  jpeg.tostring(),det_image, name, match_score
     
 # main()   
