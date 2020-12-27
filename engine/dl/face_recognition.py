@@ -69,7 +69,7 @@ def main():
                 results, score = learner.infer(conf, faces, targets, args.tta)
                 #print(score)
                # print(score[0])
-                match_score="\n{}".format(score.data[0])
+                match_score="{:.2f}".format(score.data[0]*100)
                 #print(x)
                 for idx,bbox in enumerate(bboxes):
                     if args.score:
@@ -82,18 +82,17 @@ def main():
                             frame = draw_box_name(bbox, "unknown", frame)
                         else:    
                             name = names[results[idx]+1]
-                            match_score = match_score * 100
+                            match_score = match_score
                             frame = draw_box_name(bbox, names[results[idx] + 1], frame)
+                            path ="/home/user/Downloads/Face-Recognition/data/facebank/"+str(name)+"/*.jpg"
+            		    filenames = [img for img in glob.glob(path)]
+                            img=cv2.imread(filenames[0])
                             
-                            #det_image =  cv2.imencode('.jpg', img)[1].tostring()
-                       
             except:
                 pass
                 #print('detect error')    
             ret, jpeg = cv2.imencode('.jpg', frame) 
-            path ="/home/user/Downloads/Face-Recognition/data/facebank/"+str(name)+"/*.jpg"
-            filenames = [img for img in glob.glob(path)]
-            img=cv2.imread(filenames[0])
+            
             return  jpeg.tostring(),img, name, match_score
     
 # main()   
