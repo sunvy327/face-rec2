@@ -18,7 +18,7 @@ async def get_stream():
     while True:
         detect_jpg = None
         frame, detected, name, score = main()
-        print(score)
+        # print(detected)
         jpg_as_text = base64.b64encode(frame).decode('ascii')
         if detected:
             detect_jpg = base64.b64encode(detected).decode('ascii')
