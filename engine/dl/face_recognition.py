@@ -89,7 +89,7 @@ def main():
                             img=cv2.imread(filenames[0])
                             
             except:
-                pass
+                print("None")
                 #print('detect error')    
             ret, jpeg = cv2.imencode('.jpg', frame) 
             
