@@ -101,20 +101,9 @@ def main():
                             det_image = cv2.imencode('.jpg', img)[1].tostring()
 
             except:
-<<<<<<< HEAD
                 pass
                 # print('detect error')
             ret, jpeg = cv2.imencode('.jpg', frame)
 
             return jpeg.tostring(), det_image, name, match_score
 
-# main()
-=======
-                print("None")
-                #print('detect error')    
-            ret, jpeg = cv2.imencode('.jpg', frame) 
-            
-            return  jpeg.tostring(),img, name, match_score
-    
-# main()   
->>>>>>> 20fe6e921a7651fd976b2c7369648e0d8af35598
