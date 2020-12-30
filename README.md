@@ -1,7 +1,6 @@
 ## Run backend
 - `pip install -r requirements.txt `
-- `cd engine` 
-- add video link to server.py, `get_stream` function `src`
+- `cd engine/dl` 
 - run system `python server.py`
 
 ## Run UI
