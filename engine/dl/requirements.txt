@@ -1,4 +1,0 @@
-opencv
-face_recognition 
-tensorflow
-keras

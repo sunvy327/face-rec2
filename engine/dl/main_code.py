@@ -12,7 +12,7 @@ def main():
     model = get_liveness_model()
     
     # load weights into new model
-    model.load_weights("/home/sunvy/git_workspace/Spoofing/model/model.h5")
+    model.load_weights("/home/sunvy/PycharmProjects/face-recognition/engine/dl/model/model.h5")
     print("Loaded model from disk")
     
     # Read the users data and create face encodings 
@@ -105,11 +105,14 @@ def main():
            
             
             # Display the resulting image
-            cv2.imshow('Video', frame)
+            #cv2.imshow('Video', frame)
+            ret, jpeg = cv2.imencode('.jpg', frame)
+            return (jpeg.tostring())
+
+            #print(jpeg.tostring())        
+            #print(frame)    
+            #if cv2.waitKey(27) & 0xFF == ord('q'):
+            #    break
     
 
-            if cv2.waitKey(27) & 0xFF == ord('q'):
-                break
-    
-
-main()
+#main()
