@@ -5,7 +5,7 @@ class App extends Component {
   // constructor(props) {
     state = {
       response: [],
-      endpoint: "ws://0.0.0.0:8083/ws",
+      endpoint: "ws://0.0.0.0:8084/ws",
       loading: false,
     }
   // }
@@ -51,19 +51,7 @@ class App extends Component {
                   alt=""
                 />
               </div>
-              <div style={{ fontSize: 25, textAlign: "center", margin:"20px 70px" }}>
-                <h3>Detected Face</h3>
-                <br />
-                <img
-                  src={
-                    response.detection && `data:image/gif;base64,${response.detection}`
-                  }
-                  alt=""
-                  width="300"
-                /> <br />
-                  {response.name ? <>Name: {response.name} <br /></> : null}
-                  {response.score ? <>Score: {response.score} <br /></> : null}
-              </div>
+             
             </>
           ) : null}
         </div>
